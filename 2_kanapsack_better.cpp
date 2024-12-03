@@ -7,34 +7,36 @@ void sorting(int array1[], int array2[], int n)
     {
         for (int j = i; j < n; j++)
         {
-            if (array1[i]>array1[j])
+            if (array1[i] > array1[j])
             {
-                temp=array1[i];
-                array1[i]=array1[j];
-                array1[j]=temp;
+                temp = array1[i];
+                array1[i] = array1[j];
+                array1[j] = temp;
 
                 temp = array2[i];
-                array2[i]=array2[j];
-                array2[j]=temp;
-            }   
-        }   
+                array2[i] = array2[j];
+                array2[j] = temp;
+            }
+        }
     }
 }
-void knapsack(int weights[], int values[], int length, int capacity, float *totalValue, float selectedWeights[]) {
-    float valueSum = 0;
-
-    for (int i = 0; i < length; i++) {
-        if (capacity == 0) {
-            *totalValue = valueSum;
+void Knapsack(int w[], int v[], int length, int W, float *tv, float sw[])
+{
+    float vs=0;
+    for (int i = 0; i < length; i++)
+    {
+        if (W==0)
+        {
+            *tv=vs;
             return;
         }
-        int amount = min(weights[i], capacity);
-        valueSum = valueSum + amount * (values[i] / weights[i]);
-        weights[i] = weights[i] - amount;
-        selectedWeights[i] = amount;      
-        capacity = capacity - amount;
+        int a=min(w[i],W);
+        vs=vs+a*(v[i]/w[i]);
+        w[i]=w[i]-a;
+        sw[i]=a;
+        W=W-a;
     }
-    *totalValue = valueSum;
+    *tv=vs;
     return;
 }
 int main()
@@ -42,35 +44,36 @@ int main()
     int n;
     cout<<"Enter number of Items : ";
     cin>>n;
-    int weight[n], price[n];
 
-    cout<<"Enter weight of items : ";
+    int weight[n],price[n];
+    cout<<"Enter weight of Iteam w: ";
     for (int i = 0; i < n; i++)
     {
         cin>>weight[i];
     }
-    cout<<"Enter price of items : ";
+    cout<<"Enter Price of Iteam v : ";
     for (int i = 0; i < n; i++)
     {
         cin>>price[i];
     }
 
-    sorting(weight, price, n);
+    sorting(weight,price,n);
 
     int W;
-    cout<<"Enter Capacity : ";
+    cout<<"Enter Capacity W : ";
     cin>>W;
-    float totalvalue=0, selectedWeights[n];
 
-    knapsack(weight, price, n, W, &totalvalue, selectedWeights);
+    float tv=0, sw[n];
 
-    cout<<"Maximum Total value : "<<totalvalue<<endl;
+    Knapsack(weight, price, n, W, &tv, sw);
 
-    cout << "Selected weights of items: ";
-    for (int i = 0; i < n; i++) {
-        cout << selectedWeights[i] << " ";
+    cout<<"Minimum Total value : "<<tv<<endl;
+
+    cout<<"Selected Weight of Iteams : ";
+    for (int i = 0; i < n; i++)
+    {
+        cout<<sw[i]<<" ";
     }
-    cout << endl;
-
-    return 0;    
+    cout<<endl;
+    return 0;
 }
